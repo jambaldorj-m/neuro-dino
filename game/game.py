@@ -23,8 +23,13 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    running = False
+                match event.key:
+                    case pygame.K_ESCAPE:
+                        running = False
+                    case pygame.K_SPACE | pygame.K_UP:
+                        dino.jump()
+
+        dino.update()
 
         screen.fill(BG_COLOR)
         pygame.draw.line(screen, GROUND_COLOR, (0, GROUND_HEIGHT), (SCREEN_WIDTH, GROUND_HEIGHT), 2)
