@@ -24,5 +24,14 @@ class Dino:
             self.velocity_y = JUMP_VELOCITY
             self.is_jumping = True
 
+    def update(self):
+        self.velocity_y += GRAVITY
+        self.y += self.velocity_y
+
+        if self.y >= self.ground_y:
+            self.y = self.ground_y
+            self.velocity_y = 0
+            self.is_jumping = False
+
     def draw(self, screen):
         pygame.draw.rect(screen, DINO_COLOR, (self.x, self.y, self.width, self.height))
