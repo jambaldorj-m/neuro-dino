@@ -15,15 +15,16 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("Neuro Dino")
     clock = pygame.time.Clock()
-    
+
     dino = Dino(x=80, y=GROUND_HEIGHT - DINO_HEIGHT)
 
     obstacles = []
     spawn_timer = 0
-    SPAWN_INTERVAL = 90 # frames between each cactus spawn
+    SPAWN_INTERVAL = 90
 
     running = True
     while running:
+        # handling events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -34,6 +35,7 @@ def main():
                     case pygame.K_SPACE | pygame.K_UP:
                         dino.jump()
 
+        # updating part
         dino.update()
 
         spawn_timer += 1
@@ -46,6 +48,11 @@ def main():
 
         obstacles = [obs for obs in obstacles if not obs.is_off_screen()]
 
+        for obs in obstacles:
+            if dino.get_rect().colliderect(obs.get_rect()):
+                running = False
+
+        # drawing part
         screen.fill(BG_COLOR)
         pygame.draw.line(screen, GROUND_COLOR, (0, GROUND_HEIGHT), (SCREEN_WIDTH, GROUND_HEIGHT), 2)
         dino.draw(screen)
