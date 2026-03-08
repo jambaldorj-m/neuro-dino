@@ -23,3 +23,6 @@ class Cactus:
 
     def is_off_screen(self):
         return self.x + self.width < 0
+    
+    def get_rect(self):
+        return pygame.Rect(self.x, self.y, self.width, self.height)

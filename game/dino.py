@@ -35,3 +35,6 @@ class Dino:
 
     def draw(self, screen):
         pygame.draw.rect(screen, DINO_COLOR, (self.x, self.y, self.width, self.height))
+
+    def get_rect(self):
+        return pygame.Rect(self.x, self.y, self.width, self.height)
