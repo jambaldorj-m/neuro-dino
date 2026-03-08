@@ -1,6 +1,7 @@
 import pygame
 import sys
 from dino import Dino, DINO_HEIGHT
+from obstacle import Cactus
 
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 300
@@ -17,6 +18,10 @@ def main():
     
     dino = Dino(x=80, y=GROUND_HEIGHT - DINO_HEIGHT)
 
+    obstacles = []
+    spawn_timer = 0
+    SPAWN_INTERVAL = 90 # frames between each cactus spawn
+
     running = True
     while running:
         for event in pygame.event.get():
@@ -31,11 +36,22 @@ def main():
 
         dino.update()
 
+        spawn_timer += 1
+        if spawn_timer >= SPAWN_INTERVAL:
+            obstacles.append(Cactus(SCREEN_WIDTH, GROUND_HEIGHT))
+            spawn_timer = 0
+
+        for obs in obstacles:
+            obs.update()
+
+        obstacles = [obs for obs in obstacles if not obs.is_off_screen()]
+
         screen.fill(BG_COLOR)
         pygame.draw.line(screen, GROUND_COLOR, (0, GROUND_HEIGHT), (SCREEN_WIDTH, GROUND_HEIGHT), 2)
         dino.draw(screen)
+        for obs in obstacles:
+            obs.draw(screen)
         pygame.display.flip()
-
         clock.tick(FPS)
 
     pygame.quit()
