@@ -2,6 +2,7 @@ import pygame
 import sys
 from dino import Dino, DINO_HEIGHT
 from obstacle import Cactus
+import random
 
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 300
@@ -9,9 +10,7 @@ FPS = 60
 BG_COLOR = (255, 255, 255)
 GROUND_HEIGHT = 250
 GROUND_COLOR = (53, 53, 53)
-
 SPEED_INCREMENT = 0.005
-SPAWN_INTERVAL = 90
 
 def main():
     pygame.init()
@@ -25,6 +24,7 @@ def main():
     obstacles = []
     spawn_timer = 0
     score = 0
+    spawn_interval = 90
 
     running = True
     while running:
@@ -43,9 +43,10 @@ def main():
         dino.update()
 
         spawn_timer += 1
-        if spawn_timer >= SPAWN_INTERVAL:
+        if spawn_timer >= spawn_interval:
             obstacles.append(Cactus(SCREEN_WIDTH, GROUND_HEIGHT))
             spawn_timer = 0
+            spawn_interval = random.randint(60, 150)
 
         for obs in obstacles:
             obs.update()
