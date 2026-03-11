@@ -9,6 +9,9 @@ FPS = 60
 BG_COLOR = (255, 255, 255)
 GROUND_HEIGHT = 250
 GROUND_COLOR = (53, 53, 53)
+SPEED_INCREMENT = 0.005
+
+score = 0
 
 def main():
     pygame.init()
@@ -51,6 +54,10 @@ def main():
         for obs in obstacles:
             if dino.get_rect().colliderect(obs.get_rect()):
                 running = False
+
+        score += 1
+        for obs in obstacles:
+            obs.speed += SPEED_INCREMENT
 
         # drawing part
         screen.fill(BG_COLOR)
