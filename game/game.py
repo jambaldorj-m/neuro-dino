@@ -9,21 +9,22 @@ FPS = 60
 BG_COLOR = (255, 255, 255)
 GROUND_HEIGHT = 250
 GROUND_COLOR = (53, 53, 53)
-SPEED_INCREMENT = 0.005
 
-score = 0
+SPEED_INCREMENT = 0.005
+SPAWN_INTERVAL = 90
 
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("Neuro Dino")
     clock = pygame.time.Clock()
+    font = pygame.font.Font(None, 30)
 
     dino = Dino(x=80, y=GROUND_HEIGHT - DINO_HEIGHT)
 
     obstacles = []
     spawn_timer = 0
-    SPAWN_INTERVAL = 90
+    score = 0
 
     running = True
     while running:
@@ -65,6 +66,8 @@ def main():
         dino.draw(screen)
         for obs in obstacles:
             obs.draw(screen)
+        score_text = font.render(f"Score: {int(score)}", True, (53, 53, 53))
+        screen.blit(score_text, (20, 20))
         pygame.display.flip()
         clock.tick(FPS)
 
