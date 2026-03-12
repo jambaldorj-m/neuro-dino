@@ -1,8 +1,8 @@
 import pygame
 import sys
 import random
-from game.dino import Dino, DINO_HEIGHT
-from game.obstacle import Cactus, Bird
+from dino import Dino, DINO_HEIGHT
+from obstacle import Cactus, Bird
 
 SCREEN_WIDTH   = 900
 SCREEN_HEIGHT  = 300
