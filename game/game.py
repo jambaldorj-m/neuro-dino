@@ -40,6 +40,9 @@ def main():
                         dino.jump()
                     case pygame.K_DOWN:
                         dino.duck()
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_DOWN:
+                    dino.stop_duck()
 
         # updating part
         dino.update()
