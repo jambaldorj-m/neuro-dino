@@ -18,13 +18,16 @@ def get_inputs(dino, obstacles, speed):
         nearest = obstacles[0]
         dist = nearest.x - dino.x
         cactus_height = nearest.height
+        nearest_y = nearest.y
     else:
         dist = SCREEN_WIDTH
         cactus_height = 0
+        nearest_y = GROUND_HEIGHT
 
     return [
         dist / SCREEN_WIDTH,           # distance to next cactus (normalized)
         cactus_height / SCREEN_HEIGHT, # height of next cactus (normalized)
+        nearest_y / SCREEN_HEIGHT,     # height of nearest obstacle (normalized)
         dino.y / SCREEN_HEIGHT,        # dino's current y position (normalized)
         dino.velocity_y / 20,          # dino's vertical velocity (normalized)
         speed / 20,                    # current game speed (normalized)
