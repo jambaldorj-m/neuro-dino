@@ -19,7 +19,7 @@ class Population:
         # list for next generation
         next_generation = []
 
-        # keep top 10% unchanged (elites) — uses _copy so they're independent objects
+        # keep top 10% unchanged (elites)
         elite_count = max(1, self.size // 10)
         for i in range(elite_count):
             next_generation.append(self._copy(parents[i]))
@@ -33,12 +33,15 @@ class Population:
 
         self.genomes = next_generation
 
+        for g in self.genomes:
+            g.fitness = 0
+
     def _copy(self, genome):
         child = Genome()
         child.network.weights_input_hidden = genome.network.weights_input_hidden.copy()
         child.network.weights_hidden_output = genome.network.weights_hidden_output.copy()
-        child.network.bias_hidden = genome.network.bias_hidden.copy()
-        child.network.bias_output = genome.network.bias_output.copy()
+        child.network.bias_hidden           = genome.network.bias_hidden.copy()
+        child.network.bias_output           = genome.network.bias_output.copy()
         return child
 
     def best_fitness(self):
