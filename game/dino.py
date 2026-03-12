@@ -27,7 +27,9 @@ class Dino:
             self.is_jumping = True
 
     def duck(self):
-        if not self.is_jumping:
+        if self.is_jumping:
+            self.velocity_y = 10
+        else:
             self.is_ducking = True
             self.width = DINO_DUCK_WIDTH
             self.height = DINO_DUCK_HEIGHT
