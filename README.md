@@ -5,7 +5,7 @@ A Python-based Chrome dinosaur game clone trained using a NEAT (NeuroEvolution o
 Each dino has a small neural network that takes in 7 inputs describing the current game state and outputs a decision: jump, duck, or do nothing. Dinos that survive longer pass their "genes" (network weights) to the next generation via mutation and selection. After enough generations, the population learns to play indefinitely.
 
 ## How to run project locally
-  - Install the dependencies using "pip install pygame numpy)"
+  - Install the dependencies using "pip install pygame numpy"
   - Run the program using "python main.py"
   - To play the game yourself, use "python game/game.py"
 
