@@ -1,7 +1,7 @@
 import numpy as np
 from neural.neural_network import NeuralNetwork
 
-INPUT_SIZE = 6
+INPUT_SIZE = 7
 HIDDEN_SIZE = 6
 OUTPUT_SIZE = 3
 
