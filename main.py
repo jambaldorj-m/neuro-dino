@@ -57,7 +57,7 @@ def main():
 
         running = True
         while running:
-            # handling events
+            # events
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -67,7 +67,7 @@ def main():
                         pygame.quit()
                         sys.exit()
 
-            # updating
+            # updates
             score += 1
             speed += 0.005
 
@@ -78,16 +78,18 @@ def main():
                 else:
                     obstacles.append(Cactus(SCREEN_WIDTH, GROUND_HEIGHT))
                 obstacles[-1].speed = speed
-                spawn_timer = 0
+                spawn_timer    = 0
                 spawn_interval = random.randint(40, 150)
 
             for obs in obstacles:
+                obs.speed = speed
                 obs.update()
+
             obstacles = [obs for obs in obstacles if not obs.is_off_screen()]
 
             # AI decisions
             for i in alive[:]:
-                inputs = get_inputs(dinos[i], obstacles, speed)
+                inputs   = get_inputs(dinos[i], obstacles, speed)
                 decision = population.genomes[i].decide(inputs)
 
                 if decision == 0:
@@ -99,7 +101,8 @@ def main():
                     dinos[i].stop_duck() # release duck when not deciding to duck
 
                 dinos[i].update()
-                population.genomes[i].fitness = score
+
+                population.genomes[i].fitness += 1
 
                 # bonus fitness for passing obstacles
                 for obs in obstacles:
