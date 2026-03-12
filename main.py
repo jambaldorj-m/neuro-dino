@@ -2,7 +2,7 @@ import pygame
 import sys
 from game.dino import Dino, DINO_HEIGHT
 from game.obstacle import Cactus
-from neat.population import Population
+from neural.population import Population
 import random
 
 SCREEN_WIDTH = 900
