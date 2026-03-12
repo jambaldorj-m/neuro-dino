@@ -19,10 +19,10 @@ class Population:
         # list for next generation
         next_generation = []
 
-        # always keep the best dino unchanged
-        best = Genome()
-        best.network = parents[0].network
-        next_generation.append(best)
+        # keep top 10% unchanged (elites) — uses _copy so they're independent objects
+        elite_count = max(1, self.size // 10)
+        for i in range(elite_count):
+            next_generation.append(self._copy(parents[i]))
 
         # fill the rest with mutated copies of parents
         while len(next_generation) < self.size:
