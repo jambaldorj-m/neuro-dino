@@ -1,7 +1,7 @@
 import numpy as np
 
 class NeuralNetwork:
-    __slots__ = ["input_size", "hidden_size", "output_size"]
+    __slots__ = ["weights_input_hidden", "weights_hidden_output", "bias_hidden", "bias_output"]
 
     def __init__(self, input_size, hidden_size, output_size):
         # randomly initialize weights and biases
