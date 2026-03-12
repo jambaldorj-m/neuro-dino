@@ -10,12 +10,12 @@ import random
 from dino import Dino, DINO_HEIGHT
 from obstacle import Cactus, Bird
 
-SCREEN_WIDTH    = 900
-SCREEN_HEIGHT   = 300
-FPS             = 60
-BG_COLOR        = (255, 255, 255)
-GROUND_HEIGHT   = 250
-GROUND_COLOR    = (53, 53, 53)
+SCREEN_WIDTH  = 900
+SCREEN_HEIGHT = 300
+FPS           = 60
+BG_COLOR      = (255, 255, 255)
+GROUND_HEIGHT = 250
+GROUND_COLOR  = (53, 53, 53)
 
 # How much speed increases every frame.
 SPEED_INCREMENT = 0.005
