@@ -48,6 +48,7 @@ def main():
         # setup for this generation
         dinos = [Dino(x=80, y=GROUND_HEIGHT - DINO_HEIGHT) for _ in range(POPULATION_SIZE)]
         alive = list(range(POPULATION_SIZE))
+        passed_obstacles = [set() for _ in range(POPULATION_SIZE)]
         obstacles = []
         spawn_timer = 0
         spawn_interval = 90
@@ -78,7 +79,7 @@ def main():
                     obstacles.append(Cactus(SCREEN_WIDTH, GROUND_HEIGHT))
                 obstacles[-1].speed = speed
                 spawn_timer = 0
-                spawn_interval = random.randint(60, 150)
+                spawn_interval = random.randint(40, 150)
 
             for obs in obstacles:
                 obs.update()
@@ -99,6 +100,13 @@ def main():
 
                 dinos[i].update()
                 population.genomes[i].fitness = score
+
+                # bonus fitness for passing obstacles
+                for obs in obstacles:
+                    obs_id = id(obs)
+                    if obs.x + obs.width < dinos[i].x and obs_id not in passed_obstacles[i]:
+                        passed_obstacles[i].add(obs_id)
+                        population.genomes[i].fitness += 50
 
                 # check collision
                 for obs in obstacles:
