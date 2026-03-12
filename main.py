@@ -106,7 +106,15 @@ def main():
                     obs_id = id(obs)
                     if obs.x + obs.width < dinos[i].x and obs_id not in passed_obstacles[i]:
                         passed_obstacles[i].add(obs_id)
-                        population.genomes[i].fitness += 50
+                        if isinstance(obs, Bird) and obs.y < GROUND_HEIGHT - 40:
+                            # mid or high bird: reward ducking, penalize jumping
+                            if dinos[i].is_ducking:
+                                population.genomes[i].fitness += 100
+                            elif dinos[i].is_jumping:
+                                population.genomes[i].fitness -= 30
+                        else:
+                            # cactus or low bird: reward normally
+                            population.genomes[i].fitness += 50
 
                 # check collision
                 for obs in obstacles:
