@@ -1,7 +1,7 @@
 import pygame
 import sys
 from dino import Dino, DINO_HEIGHT
-from obstacle import Cactus
+from obstacle import Cactus, Bird
 import random
 
 SCREEN_WIDTH = 900
@@ -38,13 +38,18 @@ def main():
                         running = False
                     case pygame.K_SPACE | pygame.K_UP:
                         dino.jump()
+                    case pygame.K_DOWN:
+                        dino.duck()
 
         # updating part
         dino.update()
 
         spawn_timer += 1
         if spawn_timer >= spawn_interval:
-            obstacles.append(Cactus(SCREEN_WIDTH, GROUND_HEIGHT))
+            if random.random() < 0.3:
+                obstacles.append(Bird(SCREEN_WIDTH, GROUND_HEIGHT))
+            else:
+                obstacles.append(Cactus(SCREEN_WIDTH, GROUND_HEIGHT))
             spawn_timer = 0
             spawn_interval = random.randint(60, 150)
 
