@@ -1,14 +1,32 @@
+"""
+Represents the entire group of dinos, and the evolution logic.
+
+@author: Jambaldorj Munkhsoyol
+"""
+
 import numpy as np
 from neural.genome import Genome
 
 class Population:
+    """
+    Holds all genomes (dino brains) and manages evolution between generations.
+    """
+
     __slots__ = ["size", "genomes"]
 
     def __init__(self, size):
-        self.size = size
-        self.genomes = [Genome() for _ in range(size)]
+        """
+        Create a fresh population of randomly initialized genomes.
+
+        @param size: how many dinos to run per generation (e.g. 50)
+        """
+        self.size = size                               # total number of dinos
+        self.genomes = [Genome() for _ in range(size)] # the list of Genome objects, one per dino
 
     def evolve(self):
+        """
+        Breed a new generation from the current one.
+        """
         # sort genomes by fitness, best first
         self.genomes.sort(key=lambda g: g.fitness, reverse=True)
 
@@ -31,12 +49,21 @@ class Population:
             child.mutate()
             next_generation.append(child)
 
+        # replace the old generation
         self.genomes = next_generation
 
+        # reset fitness scores
         for g in self.genomes:
             g.fitness = 0
 
     def _copy(self, genome):
+        """
+        Return a new Genome whose network weights are independent copies
+        of the given genome's weights.
+
+        @param genome: the Genome to copy
+        @returns: a new Genome with identical but independent weights
+        """
         child = Genome()
         child.network.weights_input_hidden = genome.network.weights_input_hidden.copy()
         child.network.weights_hidden_output = genome.network.weights_hidden_output.copy()
@@ -45,4 +72,8 @@ class Population:
         return child
 
     def best_fitness(self):
+        """
+        Return the highest fitness score in the current generation.
+        Useful for tracking progress.
+        """
         return max(g.fitness for g in self.genomes)
