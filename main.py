@@ -1,7 +1,7 @@
 import pygame
 import sys
 from game.dino import Dino, DINO_HEIGHT
-from game.obstacle import Cactus
+from game.obstacle import Cactus, Bird
 from neural.population import Population
 import random
 
@@ -69,7 +69,10 @@ def main():
 
             spawn_timer += 1
             if spawn_timer >= spawn_interval:
-                obstacles.append(Cactus(SCREEN_WIDTH, GROUND_HEIGHT))
+                if random.random() < 0.3: # 30% chance of bird, 70% cactus
+                    obstacles.append(Bird(SCREEN_WIDTH, GROUND_HEIGHT))
+                else:
+                    obstacles.append(Cactus(SCREEN_WIDTH, GROUND_HEIGHT))
                 obstacles[-1].speed = speed
                 spawn_timer = 0
                 spawn_interval = random.randint(60, 150)
@@ -84,6 +87,11 @@ def main():
                 decision = population.genomes[i].decide(inputs)
                 if decision == 0:
                     dinos[i].jump()
+                    dinos[i].stop_duck()
+                elif decision == 1:
+                    dinos[i].duck()
+                else:
+                    dinos[i].stop_duck()
                 dinos[i].update()
                 population.genomes[i].fitness = score
 
